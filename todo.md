@@ -49,4 +49,4 @@
 - [x] Compare the current SmartStaker visual map with each supplied product screenshot and identify every missing carousel slide or panel assignment.
 - [x] Store each supplied screenshot in durable project storage and map it to its exact captured reference image path.
 - [x] Verify every supplied product screenshot appears in its matching SmartStaker carousel or feature position on desktop and mobile.
-- [ ] Checkpoint and push the completed authoritative-screenshot correction to `smartstaker-rebuild`.
+- [x] Checkpoint and push the completed authoritative-screenshot correction to `smartstaker-rebuild`.
