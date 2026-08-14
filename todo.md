@@ -42,4 +42,4 @@
 - [x] Compare the live SSPilot image-bearing sections against SmartStaker and inventory every missing or failed visual asset.
 - [x] Retrieve or reliably rehost the missing reference visual assets without changing their composition or placement.
 - [x] Confirm the restored images render at the same desktop and mobile breakpoints as the live reference.
-- [ ] Checkpoint and push the completed image-asset correction to `smartstaker-rebuild`.
+- [x] Checkpoint and push the completed image-asset correction to `smartstaker-rebuild`.
