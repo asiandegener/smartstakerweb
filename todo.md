@@ -22,3 +22,10 @@
 - [x] Replace SmartStaker’s rewritten copy with the captured reference wording, changing only `SSPilot` brand identifiers to `SmartStaker`.
 - [x] Compare all rendered SmartStaker routes against the reference for word-level and section-order parity.
 - [x] Commit and push the literal-copy revision to `smartstaker-rebuild`.
+
+## Rendered Parity Correction
+
+- [x] Capture comparable live desktop and mobile states from SSPilot and SmartStaker for the homepage, product, blog, and legal routes.
+- [x] Document the specific visual, interaction, and route behavior differences in the rendered pages.
+- [ ] Replace the iframe mirror approach where it causes a visible mismatch, then implement the corrected reference-faithful rendering.
+- [ ] Validate all corrected routes against the live reference and push the visual-parity fix to `smartstaker-rebuild`.

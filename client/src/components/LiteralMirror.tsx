@@ -4,7 +4,7 @@
  */
 import { useEffect, useRef } from "react";
 import { useLocation } from "wouter";
-import { literalMirrors } from "@/lib/literalMirrors";
+import { embeddedMirrors } from "@/lib/embeddedMirrors";
 
 function normalizePath(path: string) {
   if (path.length > 1 && path.endsWith("/")) return path.slice(0, -1);
@@ -15,13 +15,13 @@ export function LiteralMirror() {
   const [location, setLocation] = useLocation();
   const frameRef = useRef<HTMLIFrameElement>(null);
   const route = normalizePath(location);
-  const source = literalMirrors[route] ?? literalMirrors["/"];
+  const documentMarkup = embeddedMirrors[route] ?? embeddedMirrors["/"];
 
   useEffect(() => {
     const navigateFromFrame = (event: MessageEvent) => {
       if (event.data?.type !== "smartstaker-navigate" || typeof event.data.path !== "string") return;
       const target = normalizePath(event.data.path);
-      if (literalMirrors[target]) setLocation(target);
+      if (embeddedMirrors[target]) setLocation(target);
     };
 
     window.addEventListener("message", navigateFromFrame);
@@ -57,7 +57,7 @@ export function LiteralMirror() {
         const destination = new URL(rawHref, documentInFrame.baseURI);
         const destinationPath = normalizePath(destination.pathname);
 
-        if (destination.hostname === "sspilot.cc" && literalMirrors[destinationPath]) {
+        if (destination.hostname === "sspilot.cc" && embeddedMirrors[destinationPath]) {
           event.preventDefault();
           setLocation(destinationPath);
         }
@@ -69,11 +69,11 @@ export function LiteralMirror() {
   return (
     <main className="literal-mirror-root" aria-label="SmartStaker public site">
       <iframe
-        key={source}
+        key={route}
         ref={frameRef}
         className="literal-mirror-frame"
         title="SmartStaker"
-        src={source}
+        srcDoc={documentMarkup}
         sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
         onLoad={handleFrameLoad}
       />
