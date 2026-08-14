@@ -171,10 +171,23 @@ export function LiteralMirror() {
         const capturedSource = image.dataset.smartstakerReferenceImage || image.getAttribute("src") || "";
         const hostedSource = resolvedVisualUrl(capturedSource);
         if (!hostedSource.startsWith("/manus-storage/")) return;
-        image.setAttribute("src", hostedSource);
-        image.removeAttribute("srcset");
-        image.loading = "eager";
-        image.decoding = "sync";
+
+        // Captured pages contain Next/Image nodes. Merely mutating those nodes can
+        // retain a stale responsive-loader request in some browsers, leaving a
+        // perfectly valid hosted source visually blank. Replace each with a fresh
+        // native image while copying the exact captured layout attributes.
+        const replacement = document.createElement("img");
+        Array.from(image.attributes).forEach(({ name, value }) => {
+          if (!["src", "srcset", "data-nimg", "loading", "decoding"].includes(name)) {
+            replacement.setAttribute(name, value);
+          }
+        });
+        replacement.src = hostedSource;
+        replacement.loading = "eager";
+        replacement.decoding = "sync";
+        replacement.setAttribute("fetchpriority", "high");
+        replacement.dataset.smartstakerHostedImage = "true";
+        image.replaceWith(replacement);
       });
     };
     normalizeReferencePhotos();

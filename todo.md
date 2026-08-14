@@ -50,3 +50,10 @@
 - [x] Store each supplied screenshot in durable project storage and map it to its exact captured reference image path.
 - [x] Verify every supplied product screenshot appears in its matching SmartStaker carousel or feature position on desktop and mobile.
 - [x] Checkpoint and push the completed authoritative-screenshot correction to `smartstaker-rebuild`.
+
+## Runtime Screenshot Rendering Failure
+
+- [x] Inspect the live carousel DOM, active-slide state, and image network requests in the user-facing SmartStaker page.
+- [x] Identify the exact runtime cause preventing a supplied screenshot from becoming visible.
+- [x] Repair the active slide’s image rendering and verify the restored slide-control selectors and visible image output.
+- [ ] Checkpoint and push the browser-verified runtime image fix to `smartstaker-rebuild`.
