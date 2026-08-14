@@ -56,4 +56,4 @@
 - [x] Inspect the live carousel DOM, active-slide state, and image network requests in the user-facing SmartStaker page.
 - [x] Identify the exact runtime cause preventing a supplied screenshot from becoming visible.
 - [x] Repair the active slide’s image rendering and verify the restored slide-control selectors and visible image output.
-- [ ] Checkpoint and push the browser-verified runtime image fix to `smartstaker-rebuild`.
+- [x] Checkpoint and push the browser-verified runtime image fix to `smartstaker-rebuild`.
