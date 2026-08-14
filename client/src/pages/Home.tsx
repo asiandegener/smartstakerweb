@@ -1,96 +1,74 @@
 /**
- * STYLE REMINDER — Terminal Ledger home: a left-anchored editorial hero over a dark grid,
- * wide physical modules, signal-lime only for active decisions, and clear preview boundaries.
+ * STYLE REMINDER — Reference-faithful home: centered serif hero, quiet teal grid backdrop,
+ * long visual product narrative, compact conversion points, and no invented testimonials.
  */
 
-import { ArrowDownRight, ArrowUpRight, CircleGauge, Eye, ListFilter, RadioTower } from "lucide-react";
+import { ArrowRight, Check, Download, MessageSquareText, MonitorSmartphone, ShieldCheck } from "lucide-react";
 import { Link } from "wouter";
-import { Disclosure, Eyebrow, GhostAction, MetricStrip, PrimaryAction, SafetyLine } from "@/components/PageElements";
-import { images, productPages, articleRegistry } from "@/lib/siteData";
+import { articleRegistry, originals, productPages, providers } from "@/lib/siteData";
 
-const pillars = [
-  { icon: ListFilter, index: "01", title: "Plan in public", copy: "Bring cadence, response conditions, and stops into one up-front configuration surface." },
-  { icon: CircleGauge, index: "02", title: "Read the session", copy: "Use quiet metrics, visible limits, and legible summaries to see the system before the story." },
-  { icon: RadioTower, index: "03", title: "Route the signal", copy: "Treat alerts and milestones as structured context—not a source of noise or urgency." },
-];
+const featureCards = [
+  ["Smart Automation", "Configure Dice, Limbo, Mines, Plinko, and multi-session slot workflows from a single desktop companion."],
+  ["Real-Time Analytics", "Read session summaries, history, activity volume, and defined boundaries in one reporting surface."],
+  ["Bonus Workspace", "Keep bonus markers, lane status, and collection progress visible across structured session views."],
+  ["Local-First Posture", "The product model keeps sensitive setup and activity context within the desktop workflow."],
+] as const;
+
+const faq = [
+  ["What is SmartStaker?", "SmartStaker is a desktop companion concept for configurable platform workflows, session reporting, and monitoring utilities."],
+  ["Is SmartStaker safe to use?", "Third-party tools can create platform-account and financial risk. Review platform rules, set limits, and only use funds you can afford to lose."],
+  ["How do I get started?", "Review the product pages, choose the workflow that fits the session, and configure clear limits before you begin."],
+  ["How does a bonus workspace work?", "The workspace groups session lanes, bonus markers, and pause conditions into a readable overview. It does not guarantee an event or outcome."],
+  ["What operating systems are supported?", "The product architecture includes Windows, macOS, and Linux release channels. This public build does not distribute installers."],
+  ["How is data protected?", "The product is framed as a local desktop workflow. Review the final app’s published privacy terms before connecting any account."],
+] as const;
+
+function DownloadButton({ label = "Download SmartStaker" }: { label?: string }) {
+  return <Link href="/download" className="inline-flex items-center gap-2 bg-[linear-gradient(105deg,#4ac7ae,#8dd96c)] px-5 py-3 text-sm font-semibold text-[#0b1715] transition-transform duration-150 hover:-translate-y-0.5 active:scale-[0.97]"><Download className="h-4 w-4" />{label}</Link>;
+}
 
 export default function Home() {
-  return (
-    <>
-      <section className="relative overflow-hidden border-b border-white/10 px-4 pb-16 pt-12 sm:px-8 sm:pb-24 sm:pt-20">
-        <div className="mx-auto grid max-w-[1440px] gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
-          <div className="relative z-10 max-w-3xl">
-            <Eyebrow>Decision context, first</Eyebrow>
-            <h1 className="mt-7 font-display text-[clamp(3.8rem,8vw,8.5rem)] leading-[0.82] tracking-[-0.065em] text-[#f3f1e9]">
-              A clearer way<br />to frame <em className="font-normal text-[#a8ff58]">the session.</em>
-            </h1>
-            <p className="mt-8 max-w-xl text-base leading-8 text-[#b4b9b1] sm:text-lg">
-              SmartStaker is an independent product-site preview for bringing operational clarity to automated-play workflows—without hiding the role of limits, variance, or human judgment.
-            </p>
-            <div className="mt-9 flex flex-wrap gap-3">
-              <PrimaryAction label="Inspect the product tour" href="/stake-bot" />
-              <GhostAction label="Read the design scope" />
-            </div>
-            <div className="mt-10"><SafetyLine /></div>
-          </div>
+  const highlighted = productPages.filter((page) => ["stake-slots", "stake-stats", "stake-code-claimer", "stake-reload-claimer"].includes(page.slug));
+  return <>
+    <section className="hero-grid border-b border-white/[0.08] px-5 pb-14 pt-20 text-center sm:pb-16 sm:pt-24">
+      <div className="mx-auto max-w-4xl">
+        <div className="flex items-center justify-center gap-3 font-mono text-[10px] uppercase tracking-[0.15em] text-[#58b9a6]"><span className="h-px w-12 bg-[#2d695e]" />SmartStaker · the all-in-one desktop companion<span className="h-px w-12 bg-[#2d695e]" /></div>
+        <h1 className="mt-10 font-display text-[clamp(3.5rem,7.7vw,6.8rem)] leading-[0.88] tracking-[-0.055em] text-[#eeefec]">Automate the flow.<br />Keep every <em className="font-normal text-[#56c5ad]">signal.</em></h1>
+        <p className="mx-auto mt-8 max-w-2xl text-[15px] leading-7 text-[#a8b0ad] sm:text-lg">SmartStaker brings original-game workflows, multi-session lanes, promotion monitoring, and live session reporting into one clear desktop product.</p>
+        <div className="mt-9 flex flex-wrap justify-center gap-3"><DownloadButton /><a href="#platform" className="inline-flex items-center gap-2 border border-[#3f877a] px-5 py-3 text-sm font-medium text-[#62cbb5] transition-colors hover:bg-[#163831]">Explore the platform <ArrowRight className="h-4 w-4" /></a></div>
+        <div className="mt-12 grid grid-cols-2 divide-x divide-y divide-white/[0.08] border border-white/[0.08] text-left sm:grid-cols-4 sm:divide-y-0"><Stat value="20" label="Originals" /><Stat value="31+" label="Providers" /><Stat value="12+" label="Features" /><Stat value="3" label="Desktop platforms" /></div>
+      </div>
+    </section>
 
-          <div className="relative isolate min-h-[340px] lg:min-h-[560px]">
-            <div className="absolute -right-[12%] top-[5%] h-[105%] w-[105%] border border-[#a8ff58]/15" />
-            <img src={images.hero} alt="Abstract SmartStaker technical control environment" className="absolute inset-0 h-full w-full object-cover object-center grayscale-[10%]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0c0e0d] via-[#0c0e0d]/10 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 border-t border-white/15 bg-[#0c0e0d]/75 p-4 backdrop-blur-sm sm:flex sm:items-end sm:justify-between">
-              <div>
-                <p className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#a8ff58]">System frame / 01</p>
-                <p className="mt-2 font-display text-2xl text-[#f2f1e9]">Configure before the noise.</p>
-              </div>
-              <ArrowDownRight className="mt-4 h-7 w-7 text-[#a8ff58] sm:mt-0" />
-            </div>
+    <section id="platform" className="px-5 py-20 sm:py-28">
+      <div className="mx-auto grid max-w-[1120px] gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <div><p className="eyebrow">What is SmartStaker?</p><h2 className="mt-5 font-display text-5xl leading-[0.95] tracking-[-0.045em] text-[#edf0ec] sm:text-6xl">A full desktop workspace for <em className="font-normal text-[#55c4ab]">repeatable sessions.</em></h2></div>
+        <div><p className="text-[15px] leading-8 text-[#a7afac]">SmartStaker is designed for users who want to keep their platform workflows structured: original-game controls, parallel slot lanes, bonus progress, real-time reporting, and promotion monitoring all sit inside the same desktop surface.</p><p className="mt-5 text-[15px] leading-8 text-[#a7afac]">The platform does not make random outcomes predictable. Its job is to make settings, activity, and session boundaries easier to configure and review.</p><div className="mt-8 grid gap-px border border-white/[0.08] bg-white/[0.08] sm:grid-cols-2">{featureCards.map(([title, copy]) => <article key={title} className="bg-[#121518] p-5"><div className="h-1 w-8 bg-[#50bfa8]" /><h3 className="mt-7 font-display text-2xl text-[#e9ece8]">{title}</h3><p className="mt-3 text-sm leading-6 text-[#929c99]">{copy}</p></article>)}</div></div>
+      </div>
+    </section>
+
+    <section className="border-y border-white/[0.08] bg-[#14171a] px-5 py-20 sm:py-28">
+      <div className="mx-auto max-w-[1120px]">
+        <div className="text-center"><p className="eyebrow">Sleek. Powerful. Intuitive.</p><h2 className="mt-5 font-display text-5xl tracking-[-0.045em] text-[#eef0ed] sm:text-6xl">Engineered for <em className="font-normal text-[#55c4ab]">clarity.</em></h2></div>
+        <div className="mt-12 overflow-hidden border border-[#2a3233] bg-[#0f1214] p-4 sm:p-7">
+          <div className="grid min-h-[380px] gap-5 lg:grid-cols-[0.32fr_0.68fr]">
+            <aside className="border border-white/[0.08] bg-[#161b1d] p-5"><span className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#56c4ad]">SmartStaker / desktop</span><div className="mt-8 grid gap-3">{["Overview", "Session lanes", "Bonus workspace", "Analytics", "Signals"].map((item, index) => <div key={item} className={`flex items-center gap-3 border-l-2 py-2 pl-3 text-sm ${index === 0 ? "border-[#5bcab1] bg-[#1d2626] text-[#dce7e2]" : "border-transparent text-[#7f8b88]"}`}><span className="text-[10px]">0{index + 1}</span>{item}</div>)}</div></aside>
+            <div className="relative overflow-hidden border border-white/[0.08] bg-[#15191b] p-5 sm:p-7"><div className="absolute inset-0 opacity-50 [background:linear-gradient(rgba(85,196,171,.12)_1px,transparent_1px),linear-gradient(90deg,rgba(85,196,171,.12)_1px,transparent_1px)] [background-size:42px_42px]" /><div className="relative flex items-start justify-between"><div><p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#58c8af]">Session dashboard</p><h3 className="mt-3 font-display text-4xl text-[#edf0ed]">All systems in view.</h3></div><span className="rounded-full border border-[#5bcab1]/50 px-3 py-1 font-mono text-[9px] uppercase tracking-[0.12em] text-[#7ae0c9]">Active layout</span></div><div className="relative mt-10 grid gap-3 sm:grid-cols-3"><Panel label="Session lanes" value="04" /><Panel label="Bonus markers" value="12" /><Panel label="Signals" value="08" /></div><div className="relative mt-5 h-44 border border-white/[0.08] bg-[#111517]/90 p-4"><p className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#7f8c88]">Activity pattern</p><div className="mt-7 flex h-20 items-end gap-2">{[20, 40, 28, 62, 45, 79, 38, 92, 64, 78, 56, 88].map((height, index) => <span key={index} className="flex-1 bg-[linear-gradient(180deg,#67d7bf,#2a7568)]" style={{ height: `${height}%` }} />)}</div></div></div>
           </div>
         </div>
-        <div className="relative mx-auto mt-14 max-w-[1440px]"><MetricStrip metrics={[{ value: "12", label: "Visible planning modules" }, { value: "15", label: "Reference-style public routes" }, { value: "0", label: "Account connections" }]} /></div>
-      </section>
+      </div>
+    </section>
 
-      <section className="px-4 py-20 sm:px-8 sm:py-28">
-        <div className="mx-auto max-w-[1440px]">
-          <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
-            <div><Eyebrow>Built around the decision</Eyebrow><h2 className="mt-5 max-w-md font-display text-5xl leading-[0.94] tracking-[-0.045em] text-[#f1f0e9] sm:text-6xl">The interface is part of the discipline.</h2></div>
-            <p className="max-w-xl text-base leading-8 text-[#a9afa8]">The reference architecture is reimagined as a composed system of modules: what is being planned, what can end the session, what needs attention, and what should remain a quiet record.</p>
-          </div>
-          <div className="mt-14 grid gap-px border border-white/10 bg-white/10 md:grid-cols-3">
-            {pillars.map((pillar) => {
-              const Icon = pillar.icon;
-              return <article key={pillar.index} className="bg-[#111412] p-6 sm:p-8"><div className="flex items-center justify-between"><span className="font-mono text-[10px] tracking-[0.16em] text-[#a8ff58]">{pillar.index}</span><Icon className="h-5 w-5 text-[#a8ff58]" /></div><h3 className="mt-16 font-display text-3xl text-[#f1f0e9]">{pillar.title}</h3><p className="mt-4 max-w-sm text-sm leading-7 text-[#a9afa8]">{pillar.copy}</p></article>;
-            })}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-y border-white/10 bg-[#111412] px-4 py-20 sm:px-8 sm:py-28">
-        <div className="mx-auto max-w-[1440px]">
-          <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-end"><div><Eyebrow>Product map</Eyebrow><h2 className="mt-5 font-display text-5xl tracking-[-0.045em] text-[#f1f0e9] sm:text-6xl">A view for the<br /><em className="font-normal text-[#a8ff58]">relevant question.</em></h2></div><Link href="/stake-bot" className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-[#c8cdc4] hover:text-[#a8ff58]">See the platform <ArrowUpRight className="h-4 w-4" /></Link></div>
-          <div className="mt-14 grid gap-px border border-white/10 bg-white/10 md:grid-cols-2 xl:grid-cols-3">
-            {productPages.filter((page) => page.slug !== "download").slice(0, 9).map((page, index) => (
-              <Link key={page.slug} href={`/${page.slug}`} className="group relative min-h-[238px] overflow-hidden bg-[#111412] p-6 transition-colors hover:bg-[#151b17]">
-                {index === 0 && <div className="absolute inset-0 opacity-35 [background:radial-gradient(circle_at_85%_20%,rgba(168,255,88,.22),transparent_25%),linear-gradient(120deg,transparent_20%,rgba(255,255,255,.04)_20.5%,transparent_21%)]" />}
-                <div className="relative flex h-full flex-col justify-between"><span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#a8ff58]">{String(index + 1).padStart(2, "0")} / {page.eyebrow.replace("SmartStaker ", "")}</span><div><h3 className="max-w-[14rem] font-display text-3xl leading-none text-[#f1f0e9]">{page.title} {page.italic && <em className="font-normal">{page.italic}</em>}</h3><span className="mt-6 inline-flex h-8 w-8 items-center justify-center border border-white/20 text-[#a8ff58] transition-all group-hover:border-[#a8ff58] group-hover:translate-x-1"><ArrowUpRight className="h-4 w-4" /></span></div></div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-4 py-20 sm:px-8 sm:py-28">
-        <div className="mx-auto grid max-w-[1440px] gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div className="relative min-h-[400px] overflow-hidden border border-white/10 bg-[#101411]"><div className="absolute inset-0 [background:radial-gradient(circle_at_78%_16%,rgba(168,255,88,.2),transparent_28%),linear-gradient(rgba(255,255,255,.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] [background-size:auto,32px_32px,32px_32px]" /><div className="absolute left-[14%] top-[22%] h-40 w-[58%] border border-white/15 bg-[#151a16]/90 p-4 shadow-2xl"><p className="font-mono text-[9px] uppercase tracking-[0.13em] text-[#a8ff58]">Signal / high priority</p><div className="mt-8 flex items-end gap-1">{[24,42,38,68,53,82,65,95].map((height, index) => <span key={index} style={{ height: `${height}%` }} className="h-12 w-full bg-[#a8ff58]/80" />)}</div></div><div className="absolute bottom-[20%] right-[8%] w-[56%] border border-white/15 bg-[#0c0e0d]/90 p-4"><p className="font-mono text-[9px] uppercase tracking-[0.13em] text-[#8d948b]">Context preserved</p><div className="mt-4 h-px w-full bg-[#a8ff58]/60" /><div className="mt-3 h-px w-2/3 bg-white/15" /></div><div className="absolute inset-0 bg-gradient-to-tr from-[#0c0e0d] via-transparent to-transparent" /><div className="absolute bottom-5 left-5 right-5 border border-white/15 bg-[#0c0e0d]/85 p-5 backdrop-blur"><p className="font-mono text-[10px] uppercase tracking-[0.13em] text-[#a8ff58]">Signal relay / 02</p><p className="mt-2 font-display text-2xl text-[#f1f0e9]">The alert belongs with the context.</p></div></div>
-          <div><Eyebrow>Signal, without the urgency</Eyebrow><h2 className="mt-5 font-display text-5xl leading-[0.95] tracking-[-0.045em] text-[#f1f0e9] sm:text-6xl">A calmer record makes room for better decisions.</h2><p className="mt-6 max-w-xl text-base leading-8 text-[#a9afa8]">SmartStaker’s visual language is deliberately legible at a glance: clear status cues, less decorative noise, and a visible line between a configured plan and a live action.</p><div className="mt-8"><Disclosure /></div><div className="mt-8"><PrimaryAction label="Explore signal relay" href="/ssprf" /></div></div>
-        </div>
-      </section>
-
-      <section className="border-y border-white/10 bg-[#111412] px-4 py-20 sm:px-8 sm:py-28">
-        <div className="mx-auto max-w-[1440px]"><div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end"><div><Eyebrow>Notes from the guide desk</Eyebrow><h2 className="mt-5 font-display text-5xl tracking-[-0.045em] text-[#f1f0e9] sm:text-6xl">Read the limit<br />before the interface.</h2></div><Link href="/blog" className="font-mono text-[11px] uppercase tracking-[0.13em] text-[#c8cdc4] hover:text-[#a8ff58]">All guides →</Link></div><div className="mt-14 grid gap-5 lg:grid-cols-3">{articleRegistry.slice(0, 3).map((article, index) => <Link key={article.slug} href={`/blog/${article.slug}`} className="group border-t border-white/20 pt-5"><span className="font-mono text-[10px] uppercase tracking-[0.13em] text-[#a8ff58]">{String(index + 1).padStart(2, "0")} / {article.category}</span><h3 className="mt-9 font-display text-3xl leading-[1.02] text-[#f1f0e9] transition-colors group-hover:text-[#a8ff58]">{article.title}</h3><p className="mt-4 text-sm leading-7 text-[#a9afa8]">{article.description}</p><span className="mt-7 inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.12em] text-[#d6dad2]">Read note <ArrowUpRight className="h-3.5 w-3.5" /></span></Link>)}</div></div>
-      </section>
-
-      <section className="px-4 py-20 sm:px-8 sm:py-28"><div className="mx-auto grid max-w-[1440px] gap-10 border border-[#a8ff58]/30 bg-[#a8ff58]/5 p-7 sm:p-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end"><div><Eyebrow>Static preview / independent build</Eyebrow><h2 className="mt-5 max-w-3xl font-display text-5xl leading-[0.9] tracking-[-0.05em] text-[#f1f0e9] sm:text-7xl">Inspect the system. <em className="font-normal text-[#a8ff58]">Keep the decision yours.</em></h2></div><div className="lg:justify-self-end"><PrimaryAction label="Open preview access" href="/download" /><p className="mt-4 max-w-xs text-xs leading-6 text-[#a9afa8]">No download, account, or payment request is available in this static build.</p></div></div></section>
-    </>
-  );
+    <section className="px-5 py-20 sm:py-28"><div className="mx-auto max-w-[1120px] space-y-20">{highlighted.map((page, index) => <article key={page.slug} className={`grid gap-9 lg:grid-cols-2 lg:items-center ${index % 2 ? "lg:[&>div:first-child]:order-2" : ""}`}><FeatureVisual index={index} label={page.badge} /><div><p className="eyebrow">{index === 0 ? "EXCLUSIVE" : index === 1 ? "REPORTING" : "MONITORING"}</p><h2 className="mt-5 font-display text-5xl leading-[0.95] tracking-[-0.045em] text-[#edf0ed]">{page.title} <em className="font-normal text-[#55c4ab]">{page.accent}</em></h2><p className="mt-5 text-[15px] leading-8 text-[#a6afac]">{page.description}</p><ul className="mt-7 grid gap-3">{page.benefits.slice(0, 3).map((benefit) => <li key={benefit} className="flex items-center gap-3 text-sm text-[#c7cfcc]"><Check className="h-4 w-4 text-[#62d0b8]" />{benefit}</li>)}</ul><Link href={`/${page.slug}`} className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-[#62cfb7] hover:text-[#9ce1d2]">Explore {page.title} <ArrowRight className="h-4 w-4" /></Link></div></article>)}</div></section>
+    <section className="border-y border-white/[0.08] bg-[#14171a] px-5 py-14"><div className="mx-auto max-w-[1120px]"><p className="text-center font-mono text-[10px] uppercase tracking-[0.18em] text-[#58c6ad]">Universal support</p><Marquee title="Original Games" entries={originals} /><Marquee title="Supported Providers" entries={providers} reverse /></div></section>
+    <section className="px-5 py-20 sm:py-28"><div className="mx-auto max-w-[1120px]"><div className="grid gap-8 border border-[#2a3434] bg-[#15191b] p-7 sm:grid-cols-[1fr_auto] sm:items-center sm:p-10"><div><p className="eyebrow">SMARTSTAKER RELAY</p><h2 className="mt-4 font-display text-4xl leading-tight text-[#edf0ed]">Platform chat, <em className="font-normal text-[#55c4ab]">organized.</em></h2><p className="mt-3 max-w-xl text-sm leading-7 text-[#9ca6a2]">Filter selected activity, keep it in a focused companion feed, and return to the session with the signal attached to its context.</p><div className="mt-6 flex flex-wrap gap-3 text-sm text-[#c7cfcc]"><span className="inline-flex items-center gap-2"><MessageSquareText className="h-4 w-4 text-[#60cdb4]" />Mentions & keywords</span><span className="inline-flex items-center gap-2"><MonitorSmartphone className="h-4 w-4 text-[#60cdb4]" />Companion feed</span><span className="inline-flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-[#60cdb4]" />Priority filters</span></div></div><Link href="/ssprf" className="inline-flex items-center gap-2 border border-[#48a890] px-5 py-3 text-sm font-medium text-[#68cfb9] hover:bg-[#183a33]">Discover Relay <ArrowRight className="h-4 w-4" /></Link></div></div></section>
+    <section className="border-y border-white/[0.08] bg-[#131618] px-5 py-20 sm:py-28"><div className="mx-auto grid max-w-[1120px] gap-12 lg:grid-cols-[0.8fr_1.2fr]"><div><p className="eyebrow">Common queries</p><h2 className="mt-5 font-display text-5xl leading-[0.95] text-[#edf0ed]">Everything you need to <em className="font-normal text-[#55c4ab]">know.</em></h2></div><div className="divide-y divide-white/[0.1] border-y border-white/[0.1]">{faq.map(([question, answer], index) => <details key={question} className="group py-4"><summary className="flex cursor-pointer list-none items-center gap-4 text-[15px] text-[#d9dedb]"><span className="font-mono text-[10px] text-[#57c7ae]">0{index + 1}</span>{question}<span className="ml-auto text-[#5cc8af] group-open:rotate-45">+</span></summary><p className="pl-8 pt-3 text-sm leading-7 text-[#939d99]">{answer}</p></details>)}</div></div></section>
+    <section className="px-5 py-20 sm:py-28"><div className="mx-auto max-w-[1120px]"><div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end"><div><p className="eyebrow">Latest guides</p><h2 className="mt-5 font-display text-5xl text-[#edf0ed]">Strategies, notes, and <em className="font-normal text-[#55c4ab]">guides.</em></h2></div><Link href="/blog" className="text-sm text-[#64cfb7] hover:text-[#9de4d2]">View all articles →</Link></div><div className="mt-10 grid gap-5 lg:grid-cols-3">{articleRegistry.slice(0, 3).map((article) => <Link key={article.slug} href={`/blog/${article.slug}`} className="group border border-white/[0.08] bg-[#14181a] p-6 transition-colors hover:border-[#4aa993]"><p className="font-mono text-[10px] tracking-[0.14em] text-[#58c6ad]">{article.category}</p><h3 className="mt-5 font-display text-3xl leading-[1.02] text-[#edf0ed] group-hover:text-[#67cfb8]">{article.title}</h3><p className="mt-4 text-sm leading-6 text-[#929d99]">{article.description}</p><span className="mt-6 inline-flex text-sm text-[#6bd3bb]">Read more →</span></Link>)}</div></div></section>
+    <section className="border-t border-white/[0.08] px-5 py-20 text-center sm:py-28"><div className="mx-auto max-w-2xl"><p className="eyebrow">Ready to level up?</p><h2 className="mt-5 font-display text-5xl leading-[0.95] text-[#eff1ed] sm:text-6xl">A clearer desktop workflow starts <em className="font-normal text-[#55c4ab]">here.</em></h2><p className="mt-5 text-[15px] leading-7 text-[#a1aaa6]">Explore the SmartStaker product structure, supported workflows, and the companion tools built around them.</p><div className="mt-8 flex justify-center"><DownloadButton /></div></div></section>
+  </>;
 }
+
+function Stat({ value, label }: { value: string; label: string }) { return <div className="px-4 py-5 sm:px-6"><p className="font-display text-3xl text-[#e9eeea]">{value}</p><p className="mt-1 font-mono text-[9px] uppercase tracking-[0.12em] text-[#77908a]">{label}</p></div>; }
+function Panel({ label, value }: { label: string; value: string }) { return <div className="border border-white/[0.08] bg-[#0f1315]/90 p-4"><p className="font-mono text-[9px] uppercase tracking-[0.13em] text-[#82918d]">{label}</p><p className="mt-5 font-display text-3xl text-[#e9efeb]">{value}</p></div>; }
+function FeatureVisual({ index, label }: { index: number; label: string }) { return <div className="relative min-h-[310px] overflow-hidden border border-[#293334] bg-[#131819] p-6"><div className="absolute inset-0 [background:linear-gradient(rgba(88,199,174,.1)_1px,transparent_1px),linear-gradient(90deg,rgba(88,199,174,.1)_1px,transparent_1px)] [background-size:34px_34px]" /><div className="relative h-full"><p className="font-mono text-[9px] uppercase tracking-[0.15em] text-[#60cbb4]">{label}</p><div className={`absolute border border-white/[0.11] bg-[#1b2223] p-4 shadow-2xl ${index % 2 ? "left-[8%] top-[20%] w-[54%]" : "right-[7%] top-[18%] w-[62%]"}`}><p className="font-mono text-[8px] uppercase tracking-[0.13em] text-[#78d4c0]">Control view</p><div className="mt-6 grid grid-cols-3 gap-2">{[0, 1, 2, 3, 4, 5].map((cell) => <span key={cell} className={`h-10 border ${cell === index ? "border-[#64d2b9] bg-[#245c52]" : "border-white/[0.1] bg-[#141a1b]"}`} />)}</div></div><div className={`absolute bottom-[12%] border border-[#55c6ad]/40 bg-[#101617]/95 p-4 ${index % 2 ? "right-[7%] w-[60%]" : "left-[8%] w-[56%]"}`}><div className="flex h-12 items-end gap-1.5">{[32, 50, 40, 74, 63, 93, 58].map((height, valueIndex) => <span key={valueIndex} className="flex-1 bg-[#55c6ad]/80" style={{ height: `${height}%` }} />)}</div></div></div></div>; }
+function Marquee({ title, entries, reverse = false }: { title: string; entries: string[]; reverse?: boolean }) { return <div className="mt-10 overflow-hidden border-y border-white/[0.08] py-4"><p className="mb-3 text-center font-display text-2xl text-[#dde3df]">{title}</p><div className={`flex min-w-max gap-7 font-mono text-[10px] uppercase tracking-[0.12em] text-[#7c8985] ${reverse ? "-translate-x-24" : ""}`}>{[...entries, ...entries].map((entry, index) => <span key={`${entry}-${index}`}>{entry}</span>)}</div></div>; }
