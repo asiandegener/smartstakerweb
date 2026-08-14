@@ -68,3 +68,9 @@ The hosted Login image URL was verified to return `200 image/webp`. The renderer
 After the repair, the connected browser successfully reloads the full SmartStaker homepage and retains the expected carousel heading alongside the captured public content. The canonical hosted image endpoint redirects to durable storage and returns an image response; the direct-rendered carousel screenshot is additionally confirmed visually in both desktop and mobile render captures.
 
 The connected-browser extension timed out while attempting an additional off-screen control lookup, so no claim is made that a remote click completed in that session. The carousel implementation itself is deterministic: it found the exact captured `Previous screenshot` and `Next screenshot` buttons, found all captured slide groups, and assigns the expected transform and disabled state for each index. The visible first slide is browser-verified; the direct-hosted image repair removes the failure mode that previously left it blank.
+
+## Comprehensive image-path audit
+
+The renderer currently declares 15 explicit recovered-image mappings: ten homepage product screenshots and five user-avatar assets. The repeatable audit resolves each mapping through the active preview origin, follows the SmartStaker storage redirect, and requires a successful `image/*` response. It also extracts the 10 image-style references from the captured route documents and confirms their normalized paths resolve through the same 15 verified endpoints.
+
+The latest run passed all 15 unique delivery paths with no non-image responses, redirect failures, or missing hosted files. No source-path substitution was needed. The audit script is retained at `scripts/audit-image-paths.mjs` so future asset changes can be validated against the current preview before delivery.

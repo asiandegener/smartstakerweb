@@ -57,3 +57,24 @@
 - [x] Identify the exact runtime cause preventing a supplied screenshot from becoming visible.
 - [x] Repair the active slide’s image rendering and verify the restored slide-control selectors and visible image output.
 - [x] Checkpoint and push the browser-verified runtime image fix to `smartstaker-rebuild`.
+
+## Visual Edit Result Verification
+
+- [x] Inspect the empty visual-edit result payload and the currently relevant SmartStaker source files for unrecorded changes.
+- [x] Validate the live desktop and mobile rendering to determine whether a manual repair is required.
+- [x] Create a checkpoint of the verified visual-edit state.
+
+## User-Visible Unchanged Page Investigation
+
+- [ ] Identify the exact route, visual region, and environment in which SmartStaker still appears unchanged to the user.
+- [ ] Trace the active preview, Git branch, cache state, and image/carousel delivery path for that page.
+- [ ] Apply a concrete, user-visible correction to the affected carousel or visual section.
+- [ ] Verify the changed visible state in the same user-facing context, then checkpoint and push it.
+
+## Comprehensive Image-Path Audit
+
+- [x] Inventory every explicit SmartStaker-hosted image mapping and captured image reference used by the renderer.
+- [x] Validate each resolved image URL from the active preview and identify non-success or unexpected responses.
+- [x] Confirm no broken mappings, source-normalization failures, or fallback repairs are required while preserving the captured visual composition.
+- [x] Confirm the verified paths visibly load on representative desktop and mobile routes.
+- [x] Checkpoint and push the verified image-path correction to the separate `smartstaker-rebuild` branch.
