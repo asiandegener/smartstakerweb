@@ -21,4 +21,4 @@
 - [x] Capture every public reference page’s exact headings, paragraphs, labels, FAQs, legal text, metadata, and section sequence.
 - [x] Replace SmartStaker’s rewritten copy with the captured reference wording, changing only `SSPilot` brand identifiers to `SmartStaker`.
 - [x] Compare all rendered SmartStaker routes against the reference for word-level and section-order parity.
-- [ ] Commit and push the literal-copy revision to `smartstaker-rebuild`.
+- [x] Commit and push the literal-copy revision to `smartstaker-rebuild`.
