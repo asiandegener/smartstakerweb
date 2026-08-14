@@ -43,3 +43,10 @@
 - [x] Retrieve or reliably rehost the missing reference visual assets without changing their composition or placement.
 - [x] Confirm the restored images render at the same desktop and mobile breakpoints as the live reference.
 - [x] Checkpoint and push the completed image-asset correction to `smartstaker-rebuild`.
+
+## User-Supplied Screenshot Coverage
+
+- [x] Compare the current SmartStaker visual map with each supplied product screenshot and identify every missing carousel slide or panel assignment.
+- [x] Store each supplied screenshot in durable project storage and map it to its exact captured reference image path.
+- [x] Verify every supplied product screenshot appears in its matching SmartStaker carousel or feature position on desktop and mobile.
+- [ ] Checkpoint and push the completed authoritative-screenshot correction to `smartstaker-rebuild`.

@@ -13,16 +13,16 @@ const referenceOrigin = "https://sspilot.cc";
 // captured in-page visual assets, rehosted only to prevent third-party image
 // delivery from failing inside SmartStaker's direct document renderer.
 const recoveredReferencePhotos: Record<string, string> = {
-  "/origin.webp": "/manus-storage/origin_81f5f357.webp",
-  "/slot.webp": "/manus-storage/slot_8d331839.webp",
-  "/spin.webp": "/manus-storage/spin_bee067ce.webp",
-  "/login.webp": "/manus-storage/login_2490d3f5.webp",
+  "/origin.webp": "/manus-storage/origin_54f8c4f2.webp",
+  "/slot.webp": "/manus-storage/slot_0f0c371a.webp",
+  "/spin.webp": "/manus-storage/spin_60a8bc36.webp",
+  "/login.webp": "/manus-storage/login_57cdccdb.webp",
   "/acc.webp": "/manus-storage/acc_418856b4.webp",
-  "/chall.webp": "/manus-storage/chall_2e19ef4a.webp",
-  "/chall2.webp": "/manus-storage/chall2_9ad385bd.webp",
-  "/prom.webp": "/manus-storage/prom_a2475dc6.webp",
-  "/sport.webp": "/manus-storage/sport_a916e90e.webp",
-  "/forum.webp": "/manus-storage/forum_85fbad4a.webp",
+  "/chall.webp": "/manus-storage/chall_11946786.webp",
+  "/chall2.webp": "/manus-storage/chall2_72ffcfbc.webp",
+  "/prom.webp": "/manus-storage/prom_6b593efe.webp",
+  "/sport.webp": "/manus-storage/sport_9cc5ac5b.webp",
+  "/forum.webp": "/manus-storage/forum_66a53150.webp",
   "/images/users/1.png": "/manus-storage/user-1_41be24f4.png",
   "/images/users/2.png": "/manus-storage/user-2_a471de8b.png",
   "/images/users/3.png": "/manus-storage/user-3_a448600c.png",
@@ -260,6 +260,39 @@ export function LiteralMirror() {
       gamesButton.addEventListener("click", toggleGamesMenu);
     }
 
+    // The archived SSR markup preserves the complete carousel but its controls
+    // arrive disabled because the source carousel runtime was intentionally
+    // removed. Rehydrate just that reference interaction so every captured
+    // screenshot remains available without altering the original composition.
+    const screenshotPrevious = root.querySelector<HTMLButtonElement>('button[aria-label="Previous screenshot"]');
+    const screenshotNext = root.querySelector<HTMLButtonElement>('button[aria-label="Next screenshot"]');
+    const screenshotSlides = Array.from(root.querySelectorAll<HTMLElement>('div[role="group"][aria-roledescription="slide"]'));
+    let screenshotIndex = 0;
+    const renderScreenshotCarousel = () => {
+      const offset = `translate3d(-${screenshotIndex * 100}%, 0, 0)`;
+      screenshotSlides.forEach((slide) => {
+        slide.style.transform = offset;
+        slide.style.transition = "transform 260ms cubic-bezier(0.23, 1, 0.32, 1)";
+      });
+      if (screenshotPrevious) screenshotPrevious.disabled = screenshotIndex === 0;
+      if (screenshotNext) screenshotNext.disabled = screenshotIndex === screenshotSlides.length - 1;
+    };
+    const showPreviousScreenshot = (event: MouseEvent) => {
+      event.preventDefault();
+      screenshotIndex = Math.max(0, screenshotIndex - 1);
+      renderScreenshotCarousel();
+    };
+    const showNextScreenshot = (event: MouseEvent) => {
+      event.preventDefault();
+      screenshotIndex = Math.min(screenshotSlides.length - 1, screenshotIndex + 1);
+      renderScreenshotCarousel();
+    };
+    if (screenshotSlides.length > 0) {
+      renderScreenshotCarousel();
+      screenshotPrevious?.addEventListener("click", showPreviousScreenshot);
+      screenshotNext?.addEventListener("click", showNextScreenshot);
+    }
+
     renderThemeIcon();
     root.addEventListener("click", navigateFromReference, true);
     themeButton?.addEventListener("click", toggleTheme);
@@ -268,6 +301,8 @@ export function LiteralMirror() {
       themeButton?.removeEventListener("click", toggleTheme);
       menuButton?.removeEventListener("click", toggleMobileMenu);
       gamesButton?.removeEventListener("click", toggleGamesMenu);
+      screenshotPrevious?.removeEventListener("click", showPreviousScreenshot);
+      screenshotNext?.removeEventListener("click", showNextScreenshot);
       mobileMenu.remove();
       gamesMenu.remove();
     };
