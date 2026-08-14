@@ -1,0 +1,29 @@
+/* STYLE REMINDER — Terminal Ledger: near-black construction grid, Bodoni editorial display,
+   DM Mono instrumentation, minimal radius, signal lime only for high-intent moments. */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,ital,wght@6..96,400;6..96,500;6..96,600;6..96,700;6..96,800;6..96,900;6..96,400;6..96,500;6..96,600;6..96,700;6..96,800;6..96,900&family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "DM Sans", sans-serif;
+  --font-mono: "DM Mono", monospace;
+  --font-display: "Bodoni Moda", serif;
+}
+
+:root { color-scheme: dark; }
+* { border-color: rgba(255,255,255,0.1); }
+html { scroll-behavior: smooth; background: #0c0e0d; }
+body { margin: 0; min-width: 320px; background: #0c0e0d; color: #efeee6; font-family: "DM Sans", sans-serif; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid #a8ff58; outline-offset: 3px; }
+html[data-theme="light"] { filter: saturate(0.92) brightness(1.07); }
+.font-display { font-family: "Bodoni Moda", serif; }
+.site-grid-pointer { background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px); background-size: 46px 46px; mask-image: linear-gradient(to bottom, black, transparent 88%); pointer-events: none; }
+.prose-signal { color: #b7bdb4; font-size: 1rem; line-height: 1.9; }
+.prose-signal p + p { margin-top: 1.35rem; }
+.prose-signal h2 { margin-top: 3.5rem; color: #f1f0e9; font-family: "Bodoni Moda", serif; font-size: clamp(2rem, 4vw, 3rem); line-height: 1; letter-spacing: -0.04em; }
+.prose-signal blockquote { margin: 3rem 0; border-left: 1px solid #a8ff58; padding: 0.4rem 0 0.4rem 1.25rem; color: #ecefe8; font-family: "Bodoni Moda", serif; font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.25; }
+@media (prefers-reduced-motion: no-preference) { .site-grid-pointer { animation: gridBreathe 10s ease-in-out infinite alternate; } }
+@keyframes gridBreathe { from { opacity: 0.35; } to { opacity: 0.65; } }
