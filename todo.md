@@ -28,11 +28,18 @@
 - [x] Capture comparable live desktop and mobile states from SSPilot and SmartStaker for the homepage, product, blog, and legal routes.
 - [x] Document the specific visual, interaction, and route behavior differences in the rendered pages.
 - [x] Replace the iframe mirror approach where it causes a visible mismatch, then implement the corrected reference-faithful rendering.
-- [ ] Validate all corrected routes against the live reference and push the visual-parity fix to `smartstaker-rebuild`.
+- [x] Validate all corrected routes against the live reference and push the visual-parity fix to `smartstaker-rebuild`.
 
 ## User-Reported Remaining Parity Failure
 
 - [x] Capture a viewport-matched comparison of the live SSPilot page and SmartStaker page in the connected browser.
 - [x] Identify the precise user-visible difference in layout, theme, assets, navigation, or behavior that remains after the dark-mode embedded-mirror correction.
 - [x] Replace or repair the current rendering architecture until the critical routes visibly match the live reference.
-- [ ] Re-test the corrected result with the user-visible browser, checkpoint it, and update `smartstaker-rebuild`.
+- [x] Re-test the corrected result with the user-visible browser, checkpoint it, and update `smartstaker-rebuild`.
+
+## Missing Reference Photos
+
+- [x] Compare the live SSPilot image-bearing sections against SmartStaker and inventory every missing or failed visual asset.
+- [x] Retrieve or reliably rehost the missing reference visual assets without changing their composition or placement.
+- [x] Confirm the restored images render at the same desktop and mobile breakpoints as the live reference.
+- [ ] Checkpoint and push the completed image-asset correction to `smartstaker-rebuild`.

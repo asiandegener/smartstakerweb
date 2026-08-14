@@ -9,6 +9,27 @@ import { embeddedMirrors } from "@/lib/embeddedMirrors";
 
 const referenceOrigin = "https://sspilot.cc";
 
+// STYLE REMINDER — Preserve the literal reference composition. These are the
+// captured in-page visual assets, rehosted only to prevent third-party image
+// delivery from failing inside SmartStaker's direct document renderer.
+const recoveredReferencePhotos: Record<string, string> = {
+  "/origin.webp": "/manus-storage/origin_81f5f357.webp",
+  "/slot.webp": "/manus-storage/slot_8d331839.webp",
+  "/spin.webp": "/manus-storage/spin_bee067ce.webp",
+  "/login.webp": "/manus-storage/login_2490d3f5.webp",
+  "/acc.webp": "/manus-storage/acc_418856b4.webp",
+  "/chall.webp": "/manus-storage/chall_2e19ef4a.webp",
+  "/chall2.webp": "/manus-storage/chall2_9ad385bd.webp",
+  "/prom.webp": "/manus-storage/prom_a2475dc6.webp",
+  "/sport.webp": "/manus-storage/sport_a916e90e.webp",
+  "/forum.webp": "/manus-storage/forum_85fbad4a.webp",
+  "/images/users/1.png": "/manus-storage/user-1_41be24f4.png",
+  "/images/users/2.png": "/manus-storage/user-2_a471de8b.png",
+  "/images/users/3.png": "/manus-storage/user-3_a448600c.png",
+  "/images/users/4.png": "/manus-storage/user-4_0d34a40f.png",
+  "/images/users/5.png": "/manus-storage/user-5_b335c605.png",
+};
+
 type ReferenceDocument = {
   title: string;
   bodyMarkup: string;
@@ -27,6 +48,13 @@ function absoluteReferenceUrl(value: string) {
   return new URL(value, `${referenceOrigin}/`).href;
 }
 
+function resolvedVisualUrl(value: string) {
+  if (!value || value.startsWith("#") || value.startsWith("data:") || value.startsWith("blob:")) return value;
+  const target = new URL(value.replaceAll("&amp;", "&"), `${referenceOrigin}/`);
+  const nextImagePath = target.pathname === "/_next/image" ? target.searchParams.get("url") : null;
+  return (nextImagePath && recoveredReferencePhotos[nextImagePath]) || recoveredReferencePhotos[target.pathname] || target.href;
+}
+
 function createReferenceDocument(markup: string): ReferenceDocument {
   const parsed = new DOMParser().parseFromString(markup, "text/html");
   const stylesheetHrefs = Array.from(parsed.querySelectorAll<HTMLLinkElement>('link[rel="stylesheet"][href]'))
@@ -37,7 +65,13 @@ function createReferenceDocument(markup: string): ReferenceDocument {
   parsed.querySelectorAll<HTMLElement>("[src], [poster]").forEach((element) => {
     for (const attribute of ["src", "poster"]) {
       const value = element.getAttribute(attribute);
-      if (value) element.setAttribute(attribute, absoluteReferenceUrl(value));
+      if (value) {
+        const resolved = resolvedVisualUrl(value);
+        element.setAttribute(attribute, resolved);
+        if (attribute === "src" && resolved.startsWith("/manus-storage/")) {
+          element.setAttribute("data-smartstaker-reference-image", value);
+        }
+      }
     }
   });
   parsed.querySelectorAll<HTMLElement>("[srcset]").forEach((element) => {
@@ -47,7 +81,7 @@ function createReferenceDocument(markup: string): ReferenceDocument {
       .split(",")
       .map((candidate) => {
         const [url, ...descriptor] = candidate.trim().split(/\s+/);
-        return [absoluteReferenceUrl(url), ...descriptor].join(" ");
+        return [resolvedVisualUrl(url), ...descriptor].join(" ");
       })
       .join(", ");
     element.setAttribute("srcset", absoluteSrcset);
@@ -131,6 +165,19 @@ export function LiteralMirror() {
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
+
+    const normalizeReferencePhotos = () => {
+      root.querySelectorAll<HTMLImageElement>("img[data-smartstaker-reference-image]").forEach((image) => {
+        const capturedSource = image.dataset.smartstakerReferenceImage || image.getAttribute("src") || "";
+        const hostedSource = resolvedVisualUrl(capturedSource);
+        if (!hostedSource.startsWith("/manus-storage/")) return;
+        image.setAttribute("src", hostedSource);
+        image.removeAttribute("srcset");
+        image.loading = "eager";
+        image.decoding = "sync";
+      });
+    };
+    normalizeReferencePhotos();
 
     const navigateFromReference = (event: MouseEvent) => {
       const target = event.target as Element | null;
